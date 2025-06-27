@@ -4,7 +4,6 @@ import { createBlog, updateBlog } from "../../validation/zod";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
-
 const blogRouter = express.Router();
 
 blogRouter.post("/create-blog", userMiddleware, async (req, res) => {
@@ -89,7 +88,6 @@ blogRouter.put("/update-blog", userMiddleware, async (req, res) => {
 blogRouter.get("/bulk", async (req, res) => {
   try {
     const allBlogs = await prisma.post.findMany({});
-    console.log(allBlogs);
 
     res.status(200).json({
       allBlogs,
