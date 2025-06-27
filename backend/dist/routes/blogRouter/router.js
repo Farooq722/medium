@@ -95,7 +95,6 @@ blogRouter.put("/update-blog", userMiddleware_1.default, (req, res) => __awaiter
 blogRouter.get("/bulk", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const allBlogs = yield prisma.post.findMany({});
-        console.log(allBlogs);
         res.status(200).json({
             allBlogs,
             msg: "All blogs fetched successfully",

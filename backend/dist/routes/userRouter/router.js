@@ -125,6 +125,11 @@ userRouter.post("/signin", (req, res) => __awaiter(void 0, void 0, void 0, funct
         };
         res.cookie("token", token, cookieOption);
         res.status(200).json({
+            user: {
+                id: isUserExits.id,
+                name: isUserExits.name,
+                email: isUserExits.email
+            },
             msg: "Login successfully",
             success: true,
             error: false,
