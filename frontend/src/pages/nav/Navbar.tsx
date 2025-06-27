@@ -12,12 +12,11 @@ import { useUserStore } from "@/zustand/user";
 
 export const Navbar = () => {
   const { user, logout } = useUserStore();
-
+  const navigate = useNavigate();
   const clickHandler = () => {
-    logout()
+    logout();
   };
 
-  const navigate = useNavigate();
   return (
     <>
       <div className="p-3.5 flex justify-between items-center">
@@ -29,8 +28,13 @@ export const Navbar = () => {
         {user ? (
           <div className="flex justify-center items-center gap-6 text-lg ">
             <h3 className="flex justify-center items-center gap-1 cursor-pointer">
-              <GoPencil />
-              Write
+              <Link
+                to={"/blog"}
+                className="flex justify-center items-center gap-1.5 cursor-pointer hover:text-slate-600"
+              >
+                <GoPencil />
+                Write
+              </Link>
             </h3>
             <h3 className="cursor-pointer">
               <IoNotificationsOutline size={25} />
