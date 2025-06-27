@@ -2,8 +2,23 @@ import { GoPlus } from "react-icons/go";
 import { Navbar } from "./nav/Navbar";
 import { Link } from "react-router-dom";
 import { Card } from "./blog/Card";
+import { useEffect } from "react";
+import axios from "axios";
+const baseURL = import.meta.env.VITE_BACKEND_API_URL;
+
 
 export const Home = () => {
+
+  useEffect(() => {
+    const fetchData = async () =>{
+      const bulkData = await axios.get(`${baseURL}/blog/bulk`, {
+        withCredentials: true
+      });
+      console.log(bulkData.data.allBlogs);
+    }
+    fetchData()
+  }, [])
+
   return (
     <>
       <Navbar />
