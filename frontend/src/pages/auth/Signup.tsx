@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { toast } from "sonner";
 import { SyncLoader } from "react-spinners";
-import { useState } from "react";
-import { IoIosArrowBack } from "react-icons/io";
+import { useUserStore } from "@/zustand/user";
+import { Buton } from "./Buton";
 
 const baseURL = import.meta.env.VITE_BACKEND_API_URL;
 
@@ -18,13 +18,14 @@ interface FormData {
 }
 
 export const Signup = () => {
+  const { loader, setLoader } = useUserStore();
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm<FormData>();
-  const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
 
   const onSubmit = async (data: FormData) => {
@@ -57,12 +58,7 @@ export const Signup = () => {
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
-      <Button className="flex items-center bg-slate-500 hover:bg-slate-600 text-white px-4 py-2 rounded-lg shadow transition-colors duration-200 m-2"
-      onClick={() => {navigate("/")}}
-      >
-        <IoIosArrowBack className="text-lg" />
-        Back
-      </Button>
+      <Buton />
 
       <div className="bg-white w-full md:w-1/2 flex flex-col justify-center items-center p-6">
         <div className="mb-6 text-center">
@@ -129,7 +125,7 @@ export const Signup = () => {
 
             <Button
               type="submit"
-              className="w-full bg-black mt-2 text-white hover:bg-gray-800"
+              className="w-full bg-black mt-2 text-white hover:bg-gray-800 cursor-pointer"
             >
               {loader ? <SyncLoader size={6} color="#fff" /> : "Signup"}
             </Button>

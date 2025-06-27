@@ -1,13 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useUserStore } from "@/zustand/user";
 import { Label } from "@radix-ui/react-label";
 import axios from "axios";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { IoIosArrowBack } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import { SyncLoader } from "react-spinners";
 import { toast } from "sonner";
+import { Buton } from "./Buton";
 const baseURL = import.meta.env.VITE_BACKEND_API_URL;
 
 interface FormData {
@@ -16,13 +16,13 @@ interface FormData {
 }
 
 export const Signin = () => {
+  const { setUser, loader, setLoader } = useUserStore();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm<FormData>();
-  const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
 
   const onSubmit = async (data: FormData) => {
@@ -31,9 +31,11 @@ export const Signin = () => {
       const res = await axios.post(`${baseURL}/user/signin`, data, {
         withCredentials: true,
       });
+      console.log(res);
       if (res.data.success) {
         toast.success(res.data.msg);
         reset();
+        setUser(res.data.user);
         navigate("/");
       }
     } catch (error) {
@@ -45,15 +47,8 @@ export const Signin = () => {
   };
   return (
     <>
-      <Button
-        className="flex items-center bg-slate-500 hover:bg-slate-600 text-white px-4 py-2 rounded-lg shadow transition-colors duration-200 m-2"
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        <IoIosArrowBack className="text-lg" />
-        Back
-      </Button>
+      <Buton />
+
       <div className="min-h-screen flex flex-col justify-center items-center md:flex-row">
         <div className="bg-white w-full md:w-1/2 flex flex-col justify-center items-center p-6">
           <div className="mb-6 text-center">
@@ -106,7 +101,7 @@ export const Signin = () => {
 
               <Button
                 type="submit"
-                className="w-full bg-black mt-2 text-white hover:bg-gray-800"
+                className="w-full bg-black mt-2 text-white hover:bg-gray-800 cursor-pointer"
               >
                 {loader ? <SyncLoader size={6} color="#fff" /> : "Login"}
               </Button>
