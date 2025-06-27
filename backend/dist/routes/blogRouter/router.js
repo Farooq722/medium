@@ -34,15 +34,24 @@ blogRouter.post("/create-blog", userMiddleware_1.default, (req, res) => __awaite
             data: {
                 title: parseData.data.title,
                 content: parseData.data.content,
-                authorId: userId,
+                author: {
+                    connect: { id: userId },
+                },
                 published: true,
+            },
+            include: {
+                author: {
+                    select: {
+                        name: true,
+                    },
+                },
             },
         });
         res.status(200).json({
             msg: "Post created",
             success: true,
             error: false,
-            postId: blog.id,
+            postId: blog,
         });
     }
     catch (error) {
@@ -79,7 +88,7 @@ blogRouter.put("/update-blog", userMiddleware_1.default, (req, res) => __awaiter
         res.status(202).json({
             msg: "Blog Updated",
             success: true,
-            false: false,
+            error: false,
         });
         return;
     }
@@ -94,7 +103,15 @@ blogRouter.put("/update-blog", userMiddleware_1.default, (req, res) => __awaiter
 }));
 blogRouter.get("/bulk", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const allBlogs = yield prisma.post.findMany({});
+        const allBlogs = yield prisma.post.findMany({
+            include: {
+                author: {
+                    select: {
+                        name: true,
+                    },
+                },
+            },
+        });
         res.status(200).json({
             allBlogs,
             msg: "All blogs fetched successfully",

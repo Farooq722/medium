@@ -4,21 +4,23 @@ import { Link } from "react-router-dom";
 import { Card } from "./blog/Card";
 import { useEffect } from "react";
 import axios from "axios";
+import { useBlogStore } from "@/zustand/blog";
 const baseURL = import.meta.env.VITE_BACKEND_API_URL;
 
-
 export const Home = () => {
+  const { blogs, setBlogs } = useBlogStore();
 
   useEffect(() => {
-    const fetchData = async () =>{
+    const fetchData = async () => {
       const bulkData = await axios.get(`${baseURL}/blog/bulk`, {
-        withCredentials: true
+        withCredentials: true,
       });
-      console.log(bulkData.data.allBlogs);
-    }
-    fetchData()
-  }, [])
-
+      if (bulkData.data.success) {
+        setBlogs(bulkData.data.allBlogs);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <>
       <Navbar />
@@ -46,13 +48,11 @@ export const Home = () => {
             Featured
           </h3>
         </div>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {blogs.map((item, index) => (
+          <div key={item.id}>
+            <Card blog={item} />
+          </div>
+        ))}
       </div>
     </>
   );

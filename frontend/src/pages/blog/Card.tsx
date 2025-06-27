@@ -3,13 +3,19 @@ import { CiBookmarkPlus } from "react-icons/ci";
 import { IoIosRemoveCircleOutline } from "react-icons/io";
 import { RiMoreLine } from "react-icons/ri";
 
-export const Card = () => {
-  const options = {
-    year: "numeric" as const,
-    month: "short" as const,
-    day: "numeric" as const,
+interface CardProps {
+  blog: {
+    id: string;
+    title: string;
+    content: string;
+    createdAt: string;
+    author?: {
+      name: string;
+    };
   };
-  const todayData = new Date().toLocaleDateString("en-US", options);
+}
+
+export const Card = ({ blog }: CardProps) => {
   return (
     <div className="mt-10 py-2">
       <div className="flex justify-start items-center gap-3 ml-4">
@@ -20,8 +26,8 @@ export const Card = () => {
             <AvatarFallback>SC</AvatarFallback>
           </Avatar>
         </h3>
-        <h3 className="text-base font-medium">B Farooq</h3>
-        <h3 className="text-base font-light text-gray-500">{todayData}</h3>
+        <h3 className="text-base font-medium">{blog.author?.name}</h3>
+        <h3 className="text-base font-light text-gray-500">{blog.createdAt}</h3>
         <h3 className="text-base font-light text-gray-500">✨Member Only</h3>
       </div>
       <div className="flex flex-col md:flex-row justify-between p-2">
@@ -30,31 +36,11 @@ export const Card = () => {
           <div>
             <div className="space-y-2">
               <h1 className="text-xl sm:text-2xl font-bold leading-tight text-gray-900 max-h-16 overflow-hidden">
-                You can also apply utility classes to individual child
-                components if needed.
+                {blog.title}
               </h1>
 
               <h2 className="text-sm sm:text-base line-clamp-3 font-medium text-slate-800 leading-relaxed text-justify overflow-hidden">
-                If you're using your own custom component or styling, you can
-                also apply utility classes to individual child components if
-                needed. Let me know if you want rounded, bordered, or responsive
-                versions too. If you're using your own custom component or
-                styling, you can also apply utility classes to individual child
-                components if needed. Let me know if you want rounded, bordered,
-                or responsive versions too. If you're using your own custom
-                component or styling, you can also apply utility classes to
-                individual child components if needed. Let me know if you want
-                rounded, bordered, or responsive versions too. If you're using
-                your own custom component or styling, you can also apply utility
-                classes to individual child components if needed. Let me know if
-                you want rounded, bordered, or responsive versions too. If
-                you're using your own custom component or styling, you can also
-                apply utility classes to individual child components if needed.
-                Let me know if you want rounded, bordered, or responsive
-                versions too. If you're using your own custom component or
-                styling, you can also apply utility classes to individual child
-                components if needed. Let me know if you want rounded, bordered,
-                or responsive versions too.
+                {blog.content}
               </h2>
             </div>
           </div>
