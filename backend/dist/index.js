@@ -15,7 +15,8 @@ app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cookie_parser_1.default)());
 const allowedOrigins = [
     //deployed frontend linke here,
-    "http://localhost:5173",
+    "https://mediom-five.vercel.app",
+    // "http://localhost:5173"
 ];
 const corsOptions = {
     origin: function (origin, callback) {
