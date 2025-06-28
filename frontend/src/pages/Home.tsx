@@ -48,7 +48,7 @@ export const Home = () => {
             Featured
           </h3>
         </div>
-        {blogs.map((item, index) => (
+        {blogs.map((item) => (
           <div key={item.id}>
             <Card blog={item} />
           </div>
