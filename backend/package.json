@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsc -b",
+    "build": "npx prisma migrate deploy && tsc -b",
     "watch": "tsc -b -w",
     "start": "nodemon dist/index.js",
     "dev": "concurrently \"npm run watch\" \"npm run start\"",
