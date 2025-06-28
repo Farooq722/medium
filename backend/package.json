@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsc -b && prisma generate",
+    "build": "tsc -b",
     "watch": "tsc -b -w",
     "start": "nodemon dist/index.js",
     "dev": "concurrently \"npm run watch\" \"npm run start\"",
