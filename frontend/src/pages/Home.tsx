@@ -5,11 +5,12 @@ import { Card } from "./blog/Card";
 import { useEffect } from "react";
 import axios from "axios";
 import { useBlogStore } from "@/zustand/blog";
+import { PuffLoader } from "react-spinners";
+
 const baseURL = import.meta.env.VITE_BACKEND_API_URL;
 
 export const Home = () => {
   const { blogs, setBlogs } = useBlogStore();
-
   useEffect(() => {
     const fetchData = async () => {
       const bulkData = await axios.get(`${baseURL}/blog/bulk`, {
@@ -48,11 +49,21 @@ export const Home = () => {
             Featured
           </h3>
         </div>
-        {blogs.map((item) => (
-          <div key={item.id}>
-            <Card blog={item} />
+        {blogs.length !== 0 ? (
+          blogs.map((item) => (
+            <div key={item.id} className="px-10">
+              <Card blog={item} />
+            </div>
+          ))
+        ) : (
+          <div className="flex flex-col justify-center items-center mt-20 gap-3">
+            <p className="text-base text-gray-500">
+              BE is deployed on render so taking time
+            </p>
+            <PuffLoader />
+            <p className="text-base text-gray-600">Please wait</p>
           </div>
-        ))}
+        )}
       </div>
     </>
   );

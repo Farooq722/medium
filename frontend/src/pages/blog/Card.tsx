@@ -50,11 +50,11 @@ export const Card = ({ blog }: CardProps) => {
                       state: { id: blog.id },
                     });
                   } else {
-                    navigate("/login"); 
+                    navigate("/login");
                   }
                 }}
               >
-                <h1 className="text-xl sm:text-2xl font-bold leading-tight text-gray-900 max-h-16 overflow-hidden cursor-pointer">
+                <h1 className="text-xl sm:text-2xl font-bold leading text-gray-900 max-h-16 overflow-hidden cursor-pointer">
                   {blog.title}
                 </h1>
 
