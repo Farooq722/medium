@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsc -b",
+    "build": "tsc -b && prisma generate",
     "watch": "tsc -b -w",
     "start": "nodemon dist/index.js",
-    "dev": "concurrently \"npm run watch\" \"npm run start\""
+    "dev": "concurrently \"npm run watch\" \"npm run start\"",
+    "postinstall": "prisma generate"
   },
   "keywords": [],
   "author": "",
