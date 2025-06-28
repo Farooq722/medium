@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: mediom-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: |
+      npm install
+      npm run build
+    startCommand: npm run start
+    plan: free
