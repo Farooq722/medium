@@ -31,7 +31,6 @@ export const Signin = () => {
       const res = await axios.post(`${baseURL}/user/signin`, data, {
         withCredentials: true,
       });
-      console.log(res);
       if (res.data.success) {
         toast.success(res.data.msg);
         reset();
