@@ -15,6 +15,7 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const clickHandler = () => {
     logout();
+    navigate("/");
   };
 
   return (
