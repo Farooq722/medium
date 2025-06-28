@@ -128,6 +128,13 @@ blogRouter.get("/:id", userMiddleware, async (req, res) => {
       where: {
         id: blogId,
       },
+      include: {
+        author: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
 
     if (!blogById) {

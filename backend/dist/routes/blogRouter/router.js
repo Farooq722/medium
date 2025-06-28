@@ -134,6 +134,13 @@ blogRouter.get("/:id", userMiddleware_1.default, (req, res) => __awaiter(void 0,
             where: {
                 id: blogId,
             },
+            include: {
+                author: {
+                    select: {
+                        name: true,
+                    },
+                },
+            },
         });
         if (!blogById) {
             res.status(404).json({ error: "Blog not found" });
